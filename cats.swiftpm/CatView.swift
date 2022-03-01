@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CatView: View {
     var cat: Cat
+    @State private var cachedImage: Image? = nil
     
     var body: some View {
         VStack {
@@ -21,10 +22,17 @@ struct CatView: View {
             }
             
             AsyncImage(url: URL(string: cat.url)) { phase in
-                if let image = phase.image {
+                if let cachedImage = self.cachedImage {
+                    cachedImage.resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(15)
+                } else if let image = phase.image {
                     image.resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(15)
+                            .onAppear {
+                                self.cachedImage = image
+                            }
                 } else if let error = phase.error {
                     Text("\(Image(systemName: "exclamationmark.triangle.fill")) There was an error while loading the image")
                         .foregroundColor(.secondary)
