@@ -25,10 +25,13 @@ struct CatView: View {
                     image.resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(15)
-                } else if let _ = phase.error {
+                } else if let error = phase.error {
                     Text("\(Image(systemName: "exclamationmark.triangle.fill")) There was an error while loading the image")
                         .foregroundColor(.secondary)
                         .font(.subheadline)
+                        .contextMenu {
+                            Text("Error details: \(error.localizedDescription)")
+                        }
                 } else {
                     HStack(spacing: 8) {
                         ProgressView()
