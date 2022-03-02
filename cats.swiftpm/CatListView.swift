@@ -7,6 +7,7 @@ struct CatListView: View {
         if let cats = catListVM.cats {
             List(cats) { cat in
                 CatView(cat: cat)
+                    .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .refreshable {

@@ -11,7 +11,7 @@ struct CatView: View {
     var cat: Cat
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             if (!self.cat.breeds.isEmpty) {
                 ForEach(self.cat.breeds) { breed in
                     VStack {
