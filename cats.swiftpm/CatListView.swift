@@ -15,6 +15,7 @@ struct CatListView: View {
                     self.catListVM.getData()
                 }
                 Text("Average load time: \(self.catListVM.averageLoadTime)")
+                    .foregroundColor(.secondary)
             }
         } else {
             Text("Loading cats!!")
