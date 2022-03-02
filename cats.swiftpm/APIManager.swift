@@ -5,7 +5,7 @@
 //  Created by Sumo Akula on 3/1/22.
 //
 
-import SwiftUI
+import Foundation
 
 class APIManager {
     func makeRequest<T: Decodable>(url: URL, handler: @escaping (Result<T, Error>) -> ()) {
