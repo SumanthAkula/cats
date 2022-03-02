@@ -5,13 +5,16 @@ struct CatListView: View {
     
     var body: some View {
         if let cats = catListVM.cats {
-            List(cats) { cat in
-                CatView(cat: cat)
-                    .listRowSeparator(.hidden)
-            }
-            .listStyle(.plain)
-            .refreshable {
-                self.catListVM.getData()
+            VStack {
+                List(cats) { cat in
+                    CatView(cat: cat)
+                        .listRowSeparator(.hidden)
+                }
+                .listStyle(.plain)
+                .refreshable {
+                    self.catListVM.getData()
+                }
+                Text("Average load time: \(self.catListVM.averageLoadTime)")
             }
         } else {
             Text("Loading cats!!")
