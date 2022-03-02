@@ -9,8 +9,11 @@ import Foundation
 
 class CatListViewModel: ObservableObject {
     @Published var cats: [Cat]? = nil
+    @Published var averageLoadTime: Double = -1
+    private var loadedAtLeastOnce: Bool = false
     
     func getData() {
+        let startTime = DispatchTime.now()
         let manager = APIManager()
         manager.makeRequest(url: URL(string: "https://api.thecatapi.com/v1/images/search?limit=3")!) {
             (response: Result<[Cat], Error>) in
@@ -26,8 +29,19 @@ class CatListViewModel: ObservableObject {
                     }
                     self.cats = Array(Set(data))
                 }
+                self.calculateTimeDifference(startTime: startTime)
                 break
             }
+        }
+    }
+    
+    private func calculateTimeDifference(startTime: DispatchTime) {
+        let time = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+        if !self.loadedAtLeastOnce {
+            self.averageLoadTime = time
+            self.loadedAtLeastOnce.toggle()
+        } else {
+            self.averageLoadTime = (self.averageLoadTime + time) / 2
         }
     }
 }
