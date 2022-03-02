@@ -27,7 +27,7 @@ class CatListViewModel: ObservableObject {
                     if let cats = self.cats {
                         data.append(contentsOf: cats)
                     }
-                    self.cats = Array(Set(data))
+                    self.cats = data
                 }
                 self.calculateTimeDifference(startTime: startTime)
                 break
