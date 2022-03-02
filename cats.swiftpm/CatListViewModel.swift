@@ -24,7 +24,7 @@ class CatListViewModel: ObservableObject {
                     if let cats = self.cats {
                         data.append(contentsOf: cats)
                     }
-                    self.cats = data
+                    self.cats = Array(Set(data))
                 }
                 break
             }

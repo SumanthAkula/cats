@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Cat: Decodable, Identifiable {
+struct Cat: Decodable, Identifiable, Hashable {
     let id: String
     let url: String
     let width: Int
@@ -15,7 +15,7 @@ struct Cat: Decodable, Identifiable {
     let breeds: [Breed]
 }
 
-struct Breed: Decodable, Identifiable {
+struct Breed: Decodable, Identifiable, Hashable {
     let id: String
     let name: String
     let temperament: String
