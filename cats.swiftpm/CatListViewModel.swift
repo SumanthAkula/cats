@@ -38,10 +38,14 @@ class CatListViewModel: ObservableObject {
     private func calculateTimeDifference(startTime: DispatchTime) {
         let time = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
         if !self.loadedAtLeastOnce {
-            self.averageLoadTime = time
+            DispatchQueue.main.async {
+                self.averageLoadTime = time
+            }
             self.loadedAtLeastOnce.toggle()
         } else {
-            self.averageLoadTime = (self.averageLoadTime + time) / 2
+            DispatchQueue.main.async {
+                self.averageLoadTime = (self.averageLoadTime + time) / 2
+            }
         }
     }
 }
