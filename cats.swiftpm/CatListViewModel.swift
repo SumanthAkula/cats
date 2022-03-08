@@ -9,8 +9,7 @@ import Foundation
 
 class CatListViewModel: ObservableObject {
     @Published var cats: [Cat]? = nil
-    @Published var averageLoadTime: Double = -1
-    private var loadedAtLeastOnce: Bool = false
+    @Published var averageLoadTime: Double = 0
     
     func getData() {
         let startTime = DispatchTime.now()
@@ -37,15 +36,8 @@ class CatListViewModel: ObservableObject {
     
     private func calculateTimeDifference(startTime: DispatchTime) {
         let time = Double(DispatchTime.now().uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-        if !self.loadedAtLeastOnce {
-            DispatchQueue.main.async {
-                self.averageLoadTime = time
-            }
-            self.loadedAtLeastOnce.toggle()
-        } else {
-            DispatchQueue.main.async {
-                self.averageLoadTime = (self.averageLoadTime + time) / 2
-            }
+        DispatchQueue.main.async {
+            self.averageLoadTime = (self.averageLoadTime + time) / 2
         }
     }
 }
