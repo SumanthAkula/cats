@@ -20,5 +20,5 @@ struct Breed: Decodable, Identifiable, Hashable {
     let name: String
     let temperament: String
     let life_span: String
-    let wikipedia_url: String
+    let wikipedia_url: String?
 }
