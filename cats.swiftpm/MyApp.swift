@@ -8,6 +8,7 @@ struct MyApp: App {
                 CatListView()
                     .navigationTitle("Cats!")
             }
+            .navigationViewStyle(.stack)
         }
     }
 }
